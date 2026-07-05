@@ -1,0 +1,408 @@
+/* Custom CSS for Concentric Ring Clock */
+
+:root {
+    --bg-color: #080810;
+    --card-bg: rgba(13, 13, 25, 0.6);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --glow-color: #a855f7; /* Purple glow */
+    --accent-color: #06b6d4; /* Cyan accent */
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #475569;
+    --transition-slow: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    --transition-normal: transform 0.5s ease;
+    
+    /* Dial Sizes (Diameters) */
+    --dial-outer-size: 640px;
+    --dial-middle-size: 480px;
+    --dial-inner-size: 320px;
+    --dial-center-size: 160px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+body {
+    background-color: var(--bg-color);
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(168, 85, 247, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(6, 182, 212, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(13, 13, 25, 1) 0%, #050508 100%);
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+/* Dashboard Container */
+.dashboard-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    gap: 40px;
+}
+
+/* Alignment Guide Line */
+.alignment-guide {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: calc(50% + 20px);
+    background: linear-gradient(to bottom, rgba(6, 182, 212, 0) 0%, rgba(6, 182, 212, 0.4) 30%, var(--accent-color) 80%, rgba(168, 85, 247, 0.8) 100%);
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+    z-index: 5;
+    pointer-events: none;
+    display: block;
+}
+
+/* Clock Wrapper */
+.clock-wrapper {
+    position: relative;
+    width: var(--dial-outer-size);
+    height: var(--dial-outer-size);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Scaled down automatically on smaller viewports */
+}
+
+/* Dial Container Base */
+.dial-container {
+    position: absolute;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+/* Ring Backplate (Glassmorphic concentric tracks) */
+.ring-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 1px solid var(--card-border);
+    background: rgba(13, 13, 25, 0.2);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
+    pointer-events: none;
+}
+
+/* Previews (Overlay HUD cards at the top) */
+.preview-container {
+    position: absolute;
+    top: -15px; /* Positioned slightly above the ring's top boundary */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(15, 15, 28, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 4px 12px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 10px rgba(6, 182, 212, 0.1);
+    min-width: 80px;
+    pointer-events: none;
+}
+
+.preview-label {
+    font-size: 8px;
+    letter-spacing: 0.15em;
+    color: var(--text-secondary);
+    font-weight: 700;
+}
+
+.month-preview, .date-preview, .day-name-preview {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--accent-color);
+    text-shadow: 0 0 8px rgba(6, 182, 212, 0.5);
+    margin-top: 1px;
+}
+
+/* Rotating Ring */
+.ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    transition: var(--transition-slow);
+}
+
+.ring span {
+    position: absolute;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: color 0.3s ease, text-shadow 0.3s ease, font-size 0.3s ease;
+}
+
+/* Highlighting the active top element */
+.ring span.active {
+    color: var(--text-primary);
+    font-weight: 700;
+    font-size: 16px;
+    text-shadow: 0 0 12px var(--accent-color), 0 0 24px var(--accent-color);
+}
+
+/* Specific Dial Sizes & Radii styling */
+.month-dial {
+    width: var(--dial-outer-size);
+    height: var(--dial-outer-size);
+    z-index: 1;
+}
+
+.date-dial {
+    width: var(--dial-middle-size);
+    height: var(--dial-middle-size);
+    z-index: 2;
+}
+.date-dial .preview-container {
+    top: -12px;
+}
+
+.day-name-dial {
+    width: var(--dial-inner-size);
+    height: var(--dial-inner-size);
+    z-index: 3;
+}
+.day-name-dial .preview-container {
+    top: -10px;
+}
+
+/* Center Dial (Analog Clock) */
+.center-dial {
+    position: absolute;
+    width: var(--dial-center-size);
+    height: var(--dial-center-size);
+    background-color: #0f101b;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.7),
+        0 0 30px rgba(168, 85, 247, 0.15),
+        inset 0 0 15px rgba(255, 255, 255, 0.05);
+    z-index: 4;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.center-dial:hover {
+    transform: scale(1.03);
+    border-color: var(--glow-color);
+    box-shadow: 
+        0 15px 50px rgba(0, 0, 0, 0.8),
+        0 0 40px rgba(168, 85, 247, 0.3),
+        inset 0 0 15px rgba(255, 255, 255, 0.05);
+}
+
+/* Greeting arc letters inside center-dial */
+.center-preview {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.center-preview span {
+    position: absolute;
+    top: 15px; /* Offset from top curve */
+    left: calc(50% - 10px);
+    width: 20px;
+    height: calc(100% - 30px); /* Span across center */
+    text-align: center;
+    font-family: 'Outfit', sans-serif;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    opacity: 0.6;
+    transform-origin: center center;
+    text-transform: uppercase;
+}
+
+/* Analog Clock Face and Hands */
+.clock-face {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hand-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    transform-origin: center center;
+}
+
+.hour-hand {
+    position: absolute;
+    bottom: 50%;
+    width: 4px;
+    height: 35px;
+    background: var(--text-primary);
+    border-radius: 4px;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+}
+
+.minute-hand {
+    position: absolute;
+    bottom: 50%;
+    width: 2px;
+    height: 52px;
+    background: var(--accent-color);
+    border-radius: 2px;
+    box-shadow: 0 0 8px rgba(6, 182, 212, 0.6);
+}
+
+.second-hand {
+    position: absolute;
+    bottom: 50%;
+    width: 1px;
+    height: 60px;
+    background: var(--glow-color);
+    border-radius: 1px;
+    box-shadow: 0 0 8px rgba(168, 85, 247, 0.8);
+}
+
+/* Center pivot pin */
+.pivot {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--text-primary);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    z-index: 10;
+}
+
+/* Dashboard Weekly Activity Card */
+.activity-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 24px;
+    width: 100%;
+    max-width: 480px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    z-index: 10;
+}
+
+.activity-title {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.bar-chart {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 110px;
+    padding: 0 10px;
+}
+
+.bar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 32px;
+    gap: 8px;
+}
+
+.bar {
+    position: relative;
+    width: 8px;
+    background: linear-gradient(to top, rgba(168, 85, 247, 0.2) 0%, var(--glow-color) 100%);
+    border-radius: 10px;
+    height: 0; /* JS will dynamically update this */
+    transition: height 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.2);
+}
+
+/* Glowing overlay for current and active day */
+.bar-wrapper.active .bar {
+    background: linear-gradient(to top, rgba(6, 182, 212, 0.3) 0%, var(--accent-color) 100%);
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.6);
+}
+
+.bar-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--text-muted);
+    transition: color 0.3s ease;
+}
+
+.bar-wrapper.active .bar-label {
+    color: var(--accent-color);
+}
+
+/* Responsive Media Queries */
+@media (max-width: 720px) {
+    .clock-wrapper {
+        transform: scale(0.75);
+        margin: -60px 0;
+    }
+    .alignment-guide {
+        height: calc(37% + 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .clock-wrapper {
+        transform: scale(0.5);
+        margin: -140px 0;
+    }
+    .alignment-guide {
+        height: calc(25% + 20px);
+    }
+    .activity-card {
+        padding: 16px;
+    }
+    .bar-wrapper {
+        width: 24px;
+    }
+    .bar {
+        width: 6px;
+    }
+}

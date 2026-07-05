@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<!-- saved from url=(0072)file:///C:/Users/saite/.gemini/antigravity/scratch/dial-clock/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Concentric Ring Clock</title>
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com/">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+        <link href="./Concentric Ring Clock_files/css2" rel="stylesheet">
+        <link rel="stylesheet" href="./Concentric Ring Clock_files/clock.css">
+        <script src="./Concentric Ring Clock_files/clock.js" defer=""></script>
+    </head> 
+    <body>
+        <div class="dashboard-container">
+            <!-- Active Alignment Guide line -->
+            <div class="alignment-guide"></div>
+
+            <div class="clock-wrapper">
+                <!-- Month Dial (Outer) -->
+                <div class="dial-container month-dial">
+                    <div class="ring-back"></div>
+                    <div class="preview-container">
+                        <span class="preview-label">MONTH</span>
+                        <h1 class="month-preview" id="monthPreview">JULY</h1>
+                    </div>
+                    <div class="ring" id="r3" style="transform: rotate(-180deg);">
+                        <h2 class="month-text" id="monthText"><span style="transform: translate(-50%, -50%) rotate(0deg) translateY(-290px);">JAN</span><span style="transform: translate(-50%, -50%) rotate(30deg) translateY(-290px);">FEB</span><span style="transform: translate(-50%, -50%) rotate(60deg) translateY(-290px);">MAR</span><span style="transform: translate(-50%, -50%) rotate(90deg) translateY(-290px);">APR</span><span style="transform: translate(-50%, -50%) rotate(120deg) translateY(-290px);">MAY</span><span style="transform: translate(-50%, -50%) rotate(150deg) translateY(-290px);">JUN</span><span class="active" style="transform: translate(-50%, -50%) rotate(180deg) translateY(-290px);">JUL</span><span style="transform: translate(-50%, -50%) rotate(210deg) translateY(-290px);">AUG</span><span style="transform: translate(-50%, -50%) rotate(240deg) translateY(-290px);">SEP</span><span style="transform: translate(-50%, -50%) rotate(270deg) translateY(-290px);">OCT</span><span style="transform: translate(-50%, -50%) rotate(300deg) translateY(-290px);">NOV</span><span style="transform: translate(-50%, -50%) rotate(330deg) translateY(-290px);">DEC</span></h2>
+                    </div>
+                </div>
+
+                <!-- Date Dial (Middle) -->
+                <div class="dial-container date-dial">
+                    <div class="ring-back"></div>
+                    <div class="preview-container">
+                        <span class="preview-label">DATE</span>
+                        <h1 class="date-preview" id="datePreview">05</h1>
+                    </div>
+                    <div class="ring" id="r2" style="transform: rotate(-46.4516deg);">
+                        <!-- Populated dynamically via JS to match current month's length -->
+                        <h2 class="date-text" id="dateText"><span style="transform: translate(-50%, -50%) rotate(0deg) translateY(-210px);">01</span><span style="transform: translate(-50%, -50%) rotate(11.6129deg) translateY(-210px);">02</span><span style="transform: translate(-50%, -50%) rotate(23.2258deg) translateY(-210px);">03</span><span style="transform: translate(-50%, -50%) rotate(34.8387deg) translateY(-210px);">04</span><span class="active" style="transform: translate(-50%, -50%) rotate(46.4516deg) translateY(-210px);">05</span><span style="transform: translate(-50%, -50%) rotate(58.0645deg) translateY(-210px);">06</span><span style="transform: translate(-50%, -50%) rotate(69.6774deg) translateY(-210px);">07</span><span style="transform: translate(-50%, -50%) rotate(81.2903deg) translateY(-210px);">08</span><span style="transform: translate(-50%, -50%) rotate(92.9032deg) translateY(-210px);">09</span><span style="transform: translate(-50%, -50%) rotate(104.516deg) translateY(-210px);">10</span><span style="transform: translate(-50%, -50%) rotate(116.129deg) translateY(-210px);">11</span><span style="transform: translate(-50%, -50%) rotate(127.742deg) translateY(-210px);">12</span><span style="transform: translate(-50%, -50%) rotate(139.355deg) translateY(-210px);">13</span><span style="transform: translate(-50%, -50%) rotate(150.968deg) translateY(-210px);">14</span><span style="transform: translate(-50%, -50%) rotate(162.581deg) translateY(-210px);">15</span><span style="transform: translate(-50%, -50%) rotate(174.194deg) translateY(-210px);">16</span><span style="transform: translate(-50%, -50%) rotate(185.806deg) translateY(-210px);">17</span><span style="transform: translate(-50%, -50%) rotate(197.419deg) translateY(-210px);">18</span><span style="transform: translate(-50%, -50%) rotate(209.032deg) translateY(-210px);">19</span><span style="transform: translate(-50%, -50%) rotate(220.645deg) translateY(-210px);">20</span><span style="transform: translate(-50%, -50%) rotate(232.258deg) translateY(-210px);">21</span><span style="transform: translate(-50%, -50%) rotate(243.871deg) translateY(-210px);">22</span><span style="transform: translate(-50%, -50%) rotate(255.484deg) translateY(-210px);">23</span><span style="transform: translate(-50%, -50%) rotate(267.097deg) translateY(-210px);">24</span><span style="transform: translate(-50%, -50%) rotate(278.71deg) translateY(-210px);">25</span><span style="transform: translate(-50%, -50%) rotate(290.323deg) translateY(-210px);">26</span><span style="transform: translate(-50%, -50%) rotate(301.935deg) translateY(-210px);">27</span><span style="transform: translate(-50%, -50%) rotate(313.548deg) translateY(-210px);">28</span><span style="transform: translate(-50%, -50%) rotate(325.161deg) translateY(-210px);">29</span><span style="transform: translate(-50%, -50%) rotate(336.774deg) translateY(-210px);">30</span><span style="transform: translate(-50%, -50%) rotate(348.387deg) translateY(-210px);">31</span></h2>
+                    </div>
+                </div>
+
+                <!-- Day Name Dial (Inner) -->
+                <div class="dial-container day-name-dial">
+                    <div class="ring-back"></div>
+                    <div class="preview-container">
+                        <span class="preview-label">DAY</span>
+                        <h1 class="day-name-preview" id="dayNamePreview">SUNDAY</h1>
+                    </div>
+                    <div class="ring" id="r1" style="transform: rotate(-308.571deg);">
+                        <h2 class="day-name-text" id="dayNameText"><span style="transform: translate(-50%, -50%) rotate(0deg) translateY(-130px);">MON</span><span style="transform: translate(-50%, -50%) rotate(51.4286deg) translateY(-130px);">TUE</span><span style="transform: translate(-50%, -50%) rotate(102.857deg) translateY(-130px);">WED</span><span style="transform: translate(-50%, -50%) rotate(154.286deg) translateY(-130px);">THU</span><span style="transform: translate(-50%, -50%) rotate(205.714deg) translateY(-130px);">FRI</span><span style="transform: translate(-50%, -50%) rotate(257.143deg) translateY(-130px);">SAT</span><span class="active" style="transform: translate(-50%, -50%) rotate(308.571deg) translateY(-130px);">SUN</span></h2>
+                    </div>
+                </div>
+
+                <!-- Center Dial (Analog Clock & Greetings) -->
+                <div class="center-dial" id="centerDial">
+                    <div class="center-preview" id="centerGreeting"><span style="transform: rotate(-33.75deg);">G</span><span style="transform: rotate(-26.25deg);">O</span><span style="transform: rotate(-18.75deg);">O</span><span style="transform: rotate(-11.25deg);">D</span><span style="transform: rotate(-3.75deg);"> </span><span style="transform: rotate(3.75deg);">N</span><span style="transform: rotate(11.25deg);">I</span><span style="transform: rotate(18.75deg);">G</span><span style="transform: rotate(26.25deg);">H</span><span style="transform: rotate(33.75deg);">T</span></div>
+                    <div class="head"></div>
+                    <div class="torso"></div>
+                    
+                    <div class="clock-face">
+                        <!-- Clock hands -->
+                        <div class="hand-container" id="hours" style="transform: rotate(300.39deg);">
+                            <div class="hour-hand"></div>
+                        </div>
+                        <div class="hand-container" id="minutes" style="transform: rotate(580.683deg);">
+                            <div class="minute-hand"></div>
+                        </div>
+                        <div class="hand-container" id="seconds" style="transform: rotate(21983deg);">
+                            <div class="second-hand"></div>
+                        </div>
+                        <!-- Center pin -->
+                        <div class="pivot"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weekly Progress Activity Dashboard Widget -->
+            <div class="activity-card">
+                <h3 class="activity-title">WEEKLY ACTIVITY</h3>
+                <div class="bar-chart">
+                    <div class="bar-wrapper">
+                        <div class="bar" id="day1" style="height: 87px;"></div>
+                        <span class="bar-label">MON</span>
+                    </div>
+                    <div class="bar-wrapper">
+                        <div class="bar" id="day2" style="height: 30px;"></div>
+                        <span class="bar-label">TUE</span>
+                    </div>
+                    <div class="bar-wrapper">
+                        <div class="bar" id="day3" style="height: 39px;"></div>
+                        <span class="bar-label">WED</span>
+                    </div>
+                    <div class="bar-wrapper">
+                        <div class="bar" id="day4" style="height: 44px;"></div>
+                        <span class="bar-label">THU</span>
+                    </div>
+                    <div class="bar-wrapper">
+                        <div class="bar" id="day5" style="height: 49px;"></div>
+                        <span class="bar-label">FRI</span>
+                    </div>
+                    <div class="bar-wrapper">
+                        <div class="bar" id="day6" style="height: 63px;"></div>
+                        <span class="bar-label">SAT</span>
+                    </div>
+                    <div class="bar-wrapper active">
+                        <div class="bar" id="day7" style="height: 83px;"></div>
+                        <span class="bar-label">SUN</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+
+</body></html>
